@@ -1,18 +1,18 @@
-const suits = ['copas', 'espadas', 'ouros', 'paus'];
+const suits = ['hearts', 'spades', 'diamonds', 'clubs'];
 const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 
-// passar pra ingles
-const copasButton = document.querySelector('#copas-button');
-const espadasButton = document.querySelector('#espadas-button');
-const ourosButton = document.querySelector('#ouros-button');
-const pausButton = document.querySelector('#paus-button');
+const heartsButton = document.querySelector('#hearts-button');
+const spadesButton = document.querySelector('#spades-button');
+const diamondsButton = document.querySelector('#diamonds-button');
+const clubsButton = document.querySelector('#clubs-button');
+
 const shuffle = document.querySelector('#shuffle');
 const initialStateButton = document.querySelector('#initial-state-button');
 
 const cardsDiv = document.querySelector('#cards-div');
 
 function createDeck() {
-	let deck = []; // olhar o foreach
+	let deck = []; 
 	for(let suit = 0; suit < suits.length; suit++)	{
 		for(let value = 0; value < values.length; value++) {
 			let card = {CardValue: values[value], CardSuit: suits[suit]};
@@ -36,58 +36,49 @@ function suitFilter(suit) {
 
 function shuffleFunction(array) {
   let currentIndex = array.length,  randomIndex;
-
-  // While there remain elements to shuffle...
   while (currentIndex != 0) {
 
-    // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
-    // And swap it with the current element.
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex], array[currentIndex]];
   }
   return array;
 }
 
-copasButton.addEventListener('click', () => {
-  cardsDiv.innerHTML = ('') // procurar outra forma de limpar a tela
-  const copasCards = suitFilter('copas') 
-  const text = document.createTextNode(JSON.stringify(copasCards))
-  cardsDiv.appendChild(text)
+heartsButton.addEventListener('click', () => {
+  const heartsCards = suitFilter('hearts') 
+  manipulateDom(heartsCards)
 });
 
-espadasButton.addEventListener('click', () => {
-  cardsDiv.innerHTML = ('') // procurar outra forma de limpar a tela
-  const espadasCards = suitFilter('espadas')
-  const text = document.createTextNode(JSON.stringify(espadasCards))
-  cardsDiv.appendChild(text)
+spadesButton.addEventListener('click', () => {
+  const spadesCards = suitFilter('spades')
+  manipulateDom(spadesCards)
 });
 
-ourosButton.addEventListener('click', () => {
-  cardsDiv.innerHTML = ('') // procurar outra forma de limpar a tela
-  const ouroCards =suitFilter('ouros')
-  const text = document.createTextNode(JSON.stringify(ouroCards))
-  cardsDiv.appendChild(text)
+diamondsButton.addEventListener('click', () => {
+  const diamondsCards =suitFilter('diamonds')
+  manipulateDom(diamondsCards)
 });
 
-pausButton.addEventListener('click', () => {
-  cardsDiv.innerHTML = ('') // procurar outra forma de limpar a tela
-  const pausCards = suitFilter('paus')
-  const text = document.createTextNode(JSON.stringify(pausCards))
-  cardsDiv.appendChild(text)
+clubsButton.addEventListener('click', () => {
+  const clubsCards = suitFilter('clubs')
+  manipulateDom(clubsCards)
 });
 
 initialStateButton.addEventListener('click', () => {
-  cardsDiv.innerHTML = ('') // procurar outra forma de limpar a tela
-  const text = document.createTextNode(JSON.stringify(initialDeck))
-  cardsDiv.appendChild(text)
+  manipulateDom(initialDeck)
 });
 
 shuffle.addEventListener('click', ()=>{
-  cardsDiv.innerHTML = ('')
   currentDeck = shuffleFunction(currentDeck)
+  manipulateDom(currentDeck)
+  
+})
+
+function manipulateDom(currentDeck){
+  cardsDiv.innerHTML = ('')
   const text = document.createTextNode(JSON.stringify(currentDeck))
   cardsDiv.appendChild(text)
-})
+}
