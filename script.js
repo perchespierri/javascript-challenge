@@ -1,15 +1,15 @@
 const suits = ['hearts', 'spades', 'diamonds', 'clubs'];
 const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+const initialDeck = createDeck();
+let currentDeck = createDeck();
 
 const heartsButton = document.querySelector('#hearts-button');
 const spadesButton = document.querySelector('#spades-button');
 const diamondsButton = document.querySelector('#diamonds-button');
 const clubsButton = document.querySelector('#clubs-button');
 const styledCardsDiv = document.querySelector('#deck');
-
 const shuffle = document.querySelector('#shuffle');
 const initialStateButton = document.querySelector('#initial-state-button');
-
 const cardsDiv = document.querySelector('#cards-div');
 
 function createDeck() {
@@ -22,10 +22,6 @@ function createDeck() {
 	}
 	return deck;
 };
-
-const initialDeck = createDeck();
-
-let currentDeck = createDeck();
 
 function suitFilter(deck, suit) {
   return deck.filter(card => {
@@ -48,7 +44,7 @@ function shuffleFunction(array) {
   return array;
 }
 
-function renderDeck(deck) {
+function manipulateDom(deck){
   styledCardsDiv.innerHTML = "";
 
 	for(let i = 0; i < deck.length; i++)	{
@@ -65,14 +61,6 @@ function renderDeck(deck) {
 
 		styledCardsDiv.appendChild(card);
 	}
-}
-
-function manipulateDom(currentDeck){
-  cardsDiv.innerHTML = ('')
-  const text = document.createTextNode(JSON.stringify(currentDeck))
-  cardsDiv.appendChild(text)
-
-  renderDeck(currentDeck)
 }
 
 heartsButton.addEventListener('click', () => {
@@ -104,5 +92,3 @@ shuffle.addEventListener('click', ()=>{
   manipulateDom(currentDeck)
   
 })
-
-
