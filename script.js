@@ -12,19 +12,18 @@ const shuffle = document.querySelector('#shuffle');
 const initialStateButton = document.querySelector('#initial-state-button');
 
 function createDeck() {
-	let deck = []; 
-	for(let suit = 0; suit < suits.length; suit++)	{ // usar foreach aqui e no outro for embaixo
-		for(let value = 0; value < values.length; value++) { // flatmap desafio final
-			let card = {CardValue: values[value], CardSuit: suits[suit]}; // mudar p lower camel case
-			deck.push(card);
-		}
-	}
-	return deck;
-};
+  const deck = [];
+  suits.flatMap(suit => {
+    values.map(value => {
+      deck.push({cardValue: `${value}`, cardSuit: `${suit}`});
+    })    
+  })
+  return deck
+} 
 
 function suitFilter(deck, suit) { // utilizar short circuit nesse filter
   return deck.filter(card => {
-    if (card.CardSuit === suit) {
+    if (card.cardSuit === suit) {
       return card
     }
   })
@@ -44,22 +43,28 @@ function shuffleFunction(array) {
 }
 
 function manipulateDom(deck){
-  styledCardsDiv.innerHTML = ""; // usar replaceChildren ou coisa assim
+  styledCardsDiv.replaceChildren("");
 
-	for(let i = 0; i < deck.length; i++)	{ // usar deck.forEach
-		let card = document.createElement("div");
+  deck.forEach(function(currentValue) {
+    let card = document.createElement("div");
 		let value = document.createElement("div");
 		let suit = document.createElement("div");
 		card.className = "card";
 		value.className = "value";
-		suit.className = "suit " + deck[i].CardSuit; // usar interpolação de string
+		suit.className = `suit ${currentValue.cardSuit}`;
 
-		value.innerHTML = deck[i].CardValue;
+		value.innerHTML = currentValue.cardValue;
 		card.appendChild(value);
 		card.appendChild(suit);
-
 		styledCardsDiv.appendChild(card);
-	}
+	})
+}
+
+function updateCurrentDeck(deckCurrent, deckInitial) {
+  if(deckInitial !== deckCurrent) {
+    return deckCurrent = deckInitial;
+  }
+  return deckCurrent;
 }
 
 heartsButton.addEventListener('click', () => {
@@ -73,7 +78,7 @@ spadesButton.addEventListener('click', () => {
 });
 
 diamondsButton.addEventListener('click', () => {
-  const diamondsCards =suitFilter(currentDeck, 'diamonds')
+  const diamondsCards = suitFilter(currentDeck, 'diamonds')
   manipulateDom(diamondsCards)
 });
 
@@ -83,6 +88,7 @@ clubsButton.addEventListener('click', () => {
 });
 
 initialStateButton.addEventListener('click', () => {
+  currentDeck = createDeck()
   manipulateDom(initialDeck)
 });
 
@@ -92,5 +98,3 @@ shuffle.addEventListener('click', ()=>{
   
 })
 
-// Depois de embaralhar, se clicar pra voltar no inicial ele deve desembaralhar 
-// os naipes filtrados tbm
