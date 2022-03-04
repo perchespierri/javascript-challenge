@@ -26,8 +26,8 @@ const initialDeck = createDeck();
 
 let currentDeck = createDeck();
 
-function suitFilter(suit) {
-  return currentDeck.filter(card => {
+function suitFilter(deck, suit) {
+  return deck.filter(card => {
     if (card.CardSuit === suit) {
       return card
     }
@@ -48,22 +48,22 @@ function shuffleFunction(array) {
 }
 
 heartsButton.addEventListener('click', () => {
-  const heartsCards = suitFilter('hearts') 
+  const heartsCards = suitFilter(currentDeck, 'hearts') 
   manipulateDom(heartsCards)
 });
 
 spadesButton.addEventListener('click', () => {
-  const spadesCards = suitFilter('spades')
+  const spadesCards = suitFilter(currentDeck, 'spades')
   manipulateDom(spadesCards)
 });
 
 diamondsButton.addEventListener('click', () => {
-  const diamondsCards =suitFilter('diamonds')
+  const diamondsCards =suitFilter(currentDeck, 'diamonds')
   manipulateDom(diamondsCards)
 });
 
 clubsButton.addEventListener('click', () => {
-  const clubsCards = suitFilter('clubs')
+  const clubsCards = suitFilter(currentDeck, 'clubs')
   manipulateDom(clubsCards)
 });
 
