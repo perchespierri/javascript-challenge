@@ -10,7 +10,6 @@ const clubsButton = document.querySelector('#clubs-button');
 const styledCardsDiv = document.querySelector('#deck');
 const shuffle = document.querySelector('#shuffle');
 const initialStateButton = document.querySelector('#initial-state-button');
-const cardsDiv = document.querySelector('#cards-div');
 
 function createDeck() {
 	let deck = []; 
