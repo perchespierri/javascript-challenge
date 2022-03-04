@@ -5,6 +5,7 @@ const heartsButton = document.querySelector('#hearts-button');
 const spadesButton = document.querySelector('#spades-button');
 const diamondsButton = document.querySelector('#diamonds-button');
 const clubsButton = document.querySelector('#clubs-button');
+const styledCardsDiv = document.querySelector('#deck');
 
 const shuffle = document.querySelector('#shuffle');
 const initialStateButton = document.querySelector('#initial-state-button');
@@ -47,6 +48,33 @@ function shuffleFunction(array) {
   return array;
 }
 
+function renderDeck(deck) {
+  styledCardsDiv.innerHTML = "";
+
+	for(let i = 0; i < deck.length; i++)	{
+		let card = document.createElement("div");
+		let value = document.createElement("div");
+		let suit = document.createElement("div");
+		card.className = "card";
+		value.className = "value";
+		suit.className = "suit " + deck[i].CardSuit;
+
+		value.innerHTML = deck[i].CardValue;
+		card.appendChild(value);
+		card.appendChild(suit);
+
+		styledCardsDiv.appendChild(card);
+	}
+}
+
+function manipulateDom(currentDeck){
+  cardsDiv.innerHTML = ('')
+  const text = document.createTextNode(JSON.stringify(currentDeck))
+  cardsDiv.appendChild(text)
+
+  renderDeck(currentDeck)
+}
+
 heartsButton.addEventListener('click', () => {
   const heartsCards = suitFilter(currentDeck, 'hearts') 
   manipulateDom(heartsCards)
@@ -77,8 +105,4 @@ shuffle.addEventListener('click', ()=>{
   
 })
 
-function manipulateDom(currentDeck){
-  cardsDiv.innerHTML = ('')
-  const text = document.createTextNode(JSON.stringify(currentDeck))
-  cardsDiv.appendChild(text)
-}
+
