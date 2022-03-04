@@ -21,12 +21,8 @@ function createDeck() {
   return deck
 } 
 
-function suitFilter(deck, suit) { // utilizar short circuit nesse filter
-  return deck.filter(card => {
-    if (card.cardSuit === suit) {
-      return card
-    }
-  })
+function suitFilter(deck, suit) {
+  return deck.filter(card => card.cardSuit === suit)
 }
 
 function shuffleFunction(array) {
