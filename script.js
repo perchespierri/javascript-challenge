@@ -13,16 +13,16 @@ const initialStateButton = document.querySelector('#initial-state-button');
 
 function createDeck() {
 	let deck = []; 
-	for(let suit = 0; suit < suits.length; suit++)	{
-		for(let value = 0; value < values.length; value++) {
-			let card = {CardValue: values[value], CardSuit: suits[suit]};
+	for(let suit = 0; suit < suits.length; suit++)	{ // usar foreach aqui e no outro for embaixo
+		for(let value = 0; value < values.length; value++) { // flatmap desafio final
+			let card = {CardValue: values[value], CardSuit: suits[suit]}; // mudar p lower camel case
 			deck.push(card);
 		}
 	}
 	return deck;
 };
 
-function suitFilter(deck, suit) {
+function suitFilter(deck, suit) { // utilizar short circuit nesse filter
   return deck.filter(card => {
     if (card.CardSuit === suit) {
       return card
@@ -44,15 +44,15 @@ function shuffleFunction(array) {
 }
 
 function manipulateDom(deck){
-  styledCardsDiv.innerHTML = "";
+  styledCardsDiv.innerHTML = ""; // usar replaceChildren ou coisa assim
 
-	for(let i = 0; i < deck.length; i++)	{
+	for(let i = 0; i < deck.length; i++)	{ // usar deck.forEach
 		let card = document.createElement("div");
 		let value = document.createElement("div");
 		let suit = document.createElement("div");
 		card.className = "card";
 		value.className = "value";
-		suit.className = "suit " + deck[i].CardSuit;
+		suit.className = "suit " + deck[i].CardSuit; // usar interpolação de string
 
 		value.innerHTML = deck[i].CardValue;
 		card.appendChild(value);
@@ -91,3 +91,6 @@ shuffle.addEventListener('click', ()=>{
   manipulateDom(currentDeck)
   
 })
+
+// Depois de embaralhar, se clicar pra voltar no inicial ele deve desembaralhar 
+// os naipes filtrados tbm
